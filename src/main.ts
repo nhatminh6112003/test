@@ -16,7 +16,6 @@ async function bootstrap() {
   // allowed headers
   allowedHeaders: ['Content-Type', 'Origin', 'X-Requested-With', 'Accept' 'Authorization'],
   // headers exposed to the client
-  exposedHeaders: ['Authorization'],
   credentials: true,
 });
   const config = new DocumentBuilder()

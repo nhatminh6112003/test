@@ -17,7 +17,7 @@ async function bootstrap() {
 });
   const config = new DocumentBuilder()
     .setTitle('Backend Generator')
-    .setDescription('Documentation API Test')
+    .setDescription('Documentation API Test1')
     .setVersion('1.0')
     .setBasePath('api/v1')
     .addBearerAuth({ type: 'http', scheme: 'bearer', bearerFormat: 'JWT' })

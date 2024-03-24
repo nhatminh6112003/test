@@ -33,12 +33,14 @@ async function bootstrap() {
       'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui.css',
     ],
   });
+  
   app.enableCors({
     "origin": "*",
     "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
     "preflightContinue": false,
     "optionsSuccessStatus": 204
   });
+  
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
@@ -53,12 +55,6 @@ async function bootstrap() {
   app.use(json({ limit: '50mb' }));
 
   app.use(urlencoded({ limit: '50mb', extended: true }));
-
-  app.use(
-    helmet({
-      contentSecurityPolicy: false,
-    }),
-  );
 
 
   useContainer(app.select(AppModule), { fallbackOnErrors: true });

@@ -11,8 +11,12 @@ import { AppModule } from './modules/app.module';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
  app.enableCors({
-  allowedHeaders: ['content-type'],
-  origin: 'https://frontend-test-nestjs.vercel.app/',
+   origin: true,
+  methods: ['GET', 'POST', 'PUT', 'DELETE'],
+  // allowed headers
+  allowedHeaders: ['Content-Type', 'Origin', 'X-Requested-With', 'Accept' 'Authorization'],
+  // headers exposed to the client
+  exposedHeaders: ['Authorization'],
   credentials: true,
 });
   const config = new DocumentBuilder()

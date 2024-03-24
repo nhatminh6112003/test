@@ -52,13 +52,12 @@ async function bootstrap() {
 
   useContainer(app.select(AppModule), { fallbackOnErrors: true });
 
-  var whitelist = [
-    'https://frontend-test-nestjs.vercel.app',
-    'http://localhost:3000',
-  ];
   app.enableCors({
-    origin: 'https://frontend-test-nestjs.vercel.app',
-    optionsSuccessStatus: 200
+    origin: [
+      'https://frontend-test-nestjs.vercel.app',
+      'http://localhost:3000',
+    ],
+    optionsSuccessStatus: 200,
   });
   const port = process.env.PORT || 5000;
   await app.listen(port);

@@ -27,7 +27,7 @@ export class CustomersService {
       await this.customersRepository.findByUserName(data.username);
 
     if (existingUser) {
-      throw new ConflictException('Username already exists');
+      return { message: 'Username already exists', status: 409 };
     }
 
     const { error } = await supabaseClient

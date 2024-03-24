@@ -1,4 +1,4 @@
-import { Module } from '@nestjs/common';
+import { Module } from '@nestjs/common/decorators';
 import { ConfigModule } from '@nestjs/config';
 import { CustomersModule } from './customers.module';
 import { SupabaseModule } from './supabase.module';

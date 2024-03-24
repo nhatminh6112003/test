@@ -33,12 +33,12 @@ async function bootstrap() {
       'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui.css',
     ],
   });
-  app.enableCors(
-    { 
-      origin: ['*'],
-    }
-  );
-
+  app.enableCors({
+    "origin": "*",
+    "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
+    "preflightContinue": false,
+    "optionsSuccessStatus": 204
+  });
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,

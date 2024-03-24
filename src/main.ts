@@ -33,7 +33,11 @@ async function bootstrap() {
       'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui.css',
     ],
   });
-  app.enableCors();
+  app.enableCors(
+    { 
+      origin: ['https://frontend-test-nestjs.vercel.app'],
+    }
+  );
 
   app.useGlobalPipes(
     new ValidationPipe({

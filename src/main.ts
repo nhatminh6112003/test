@@ -8,7 +8,9 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import { AppModule } from './modules/app.module';
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule);
+  const app = await NestFactory.create(AppModule, {
+    cors: true,
+  });
 
   const config = new DocumentBuilder()
     .setTitle('Backend Generator')
@@ -55,21 +57,9 @@ async function bootstrap() {
     'http://localhost:3000',
   ];
   app.enableCors({
-    origin: function (origin, callback) {
-      if (whitelist.indexOf(origin) !== -1) {
-        console.log('allowed cors for:', origin);
-        callback(null, true);
-      } else {
-        console.log('blocked cors for:', origin);
-        callback(new Error('Not allowed by CORS'));
-      }
-    },
-    allowedHeaders:
-      'X-Requested-With, X-HTTP-Method-Override, Content-Type, Accept, Observe',
-    methods: 'GET,PUT,POST,DELETE,UPDATE,OPTIONS',
-    credentials: true,
+    origin: 'https://frontend-test-nestjs.vercel.app',
+    optionsSuccessStatus: 200
   });
-
   const port = process.env.PORT || 5000;
   await app.listen(port);
 

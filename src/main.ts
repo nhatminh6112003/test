@@ -50,7 +50,15 @@ async function bootstrap() {
 
   useContainer(app.select(AppModule), { fallbackOnErrors: true });
 
-  app.enableCors();
+  app.enableCors({
+    origin: 'https://frontend-test-nestjs.vercel.app',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+    preflightContinue: false,
+    optionsSuccessStatus: 204,
+    credentials: true,
+    allowedHeaders: 'Origin,X-Requested-With,Content-Type,Accept,Authorization',
+  });
+
   const port = process.env.PORT || 5000;
   await app.listen(port);
 

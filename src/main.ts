@@ -10,14 +10,17 @@ import { AppModule } from './modules/app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
- app.enableCors({
-   origin: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE'],
-  // allowed headers
-  allowedHeaders: ['Content-Type', 'Origin', 'X-Requested-With', 'Accept' 'Authorization'],
-  // headers exposed to the client
-  credentials: true,
-});
+  app.use((req, res, next) => {
+        res.header('Access-Control-Allow-Origin', '*');
+        res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+        res.header('Access-Control-Allow-Headers', 'Content-Type, Accept');
+        next();
+    });
+
+    app.enableCors({
+        allowedHeaders:"*",
+        origin: "*"
+    });
   const config = new DocumentBuilder()
     .setTitle('Backend Generator')
     .setDescription('Documentation API Test1')

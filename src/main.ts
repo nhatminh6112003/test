@@ -10,7 +10,11 @@ import { AppModule } from './modules/app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  
+ app.enableCors({
+  allowedHeaders: ['content-type'],
+  origin: 'https://frontend-test-nestjs.vercel.app/',
+  credentials: true,
+});
   const config = new DocumentBuilder()
     .setTitle('Backend Generator')
     .setDescription('Documentation API Test')
@@ -34,7 +38,7 @@ async function bootstrap() {
     ],
   });
   
-  app.enableCors();
+
   
   app.useGlobalPipes(
     new ValidationPipe({

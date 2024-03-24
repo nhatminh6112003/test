@@ -7,20 +7,16 @@ import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
 import cors from 'cors';
 import { AppModule } from './modules/app.module';
 
-
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
-  app.use((req, res, next) => {
-        res.header('Access-Control-Allow-Origin', '*');
-        res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
-        res.header('Access-Control-Allow-Headers', 'Content-Type, Accept');
-        next();
-    });
 
-    app.enableCors({
-        allowedHeaders:"*",
-        origin: "*"
-    });
+  app.enableCors({
+    allowedHeaders: '*',
+    origin: [
+      'http://localhost:3000',
+      'https://frontend-test-nestjs.vercel.app',
+    ],
+  });
   const config = new DocumentBuilder()
     .setTitle('Backend Generator')
     .setDescription('Documentation API Test1')
@@ -43,9 +39,7 @@ async function bootstrap() {
       'https://cdnjs.cloudflare.com/ajax/libs/swagger-ui/4.15.5/swagger-ui.css',
     ],
   });
-  
 
-  
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
@@ -60,7 +54,6 @@ async function bootstrap() {
   app.use(json({ limit: '50mb' }));
 
   app.use(urlencoded({ limit: '50mb', extended: true }));
-
 
   useContainer(app.select(AppModule), { fallbackOnErrors: true });
 

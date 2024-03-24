@@ -35,7 +35,7 @@ async function bootstrap() {
   });
   app.enableCors(
     { 
-      origin: ['https://frontend-test-nestjs.vercel.app'],
+      origin: ['*'],
     }
   );
 

@@ -9,7 +9,7 @@ import { AppModule } from './modules/app.module';
 
 
 async function bootstrap() {
-  const app = await NestFactory.create(AppModule, { cors: true });
+  const app = await NestFactory.create(AppModule);
   
   const config = new DocumentBuilder()
     .setTitle('Backend Generator')
@@ -34,12 +34,7 @@ async function bootstrap() {
     ],
   });
   
-  app.enableCors({
-    "origin": "*",
-    "methods": "GET,HEAD,PUT,PATCH,POST,DELETE",
-    "preflightContinue": false,
-    "optionsSuccessStatus": 204
-  });
+  app.enableCors();
   
   app.useGlobalPipes(
     new ValidationPipe({

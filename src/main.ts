@@ -1,22 +1,15 @@
 import { NestFactory } from '@nestjs/core';
+import { Logger } from '@nestjs/common/services';
 import helmet from 'helmet';
 import { ValidationPipe } from '@nestjs/common/pipes';
 import { urlencoded, json } from 'express';
 import { useContainer } from 'class-validator';
 import { SwaggerModule, DocumentBuilder } from '@nestjs/swagger';
-import cors from 'cors';
 import { AppModule } from './modules/app.module';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
 
-  // app.enableCors({
-  //   allowedHeaders: '*',
-  //   origin: [
-  //     'http://localhost:3000',
-  //     'https://frontend-test-nestjs.vercel.app',
-  //   ],
-  // });
   const config = new DocumentBuilder()
     .setTitle('Backend Generator')
     .setDescription('Documentation API Test1')
@@ -57,8 +50,8 @@ async function bootstrap() {
 
   useContainer(app.select(AppModule), { fallbackOnErrors: true });
 
+  app.enableCors();
   const port = process.env.PORT || 5000;
-
   await app.listen(port);
 
   return port;
